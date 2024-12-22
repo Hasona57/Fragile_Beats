@@ -162,55 +162,36 @@
     <button class="primary-bg text-white p-2 rounded mt-6" onclick="navigateToSignIn()">Back to Sign In</button>
 </div>
 
-<script>
-// Function to navigate to the Vitals Page
-function navigateToVitals() {
-    document.getElementById('signInPage').classList.add('hidden');
-    document.getElementById('vitalsPage').classList.remove('hidden');
-}
-
-// Function to navigate back to the Sign In Page
-function navigateToSignIn() {
-    document.getElementById('vitalsPage').classList.add('hidden');
-    document.getElementById('signInPage').classList.remove('hidden');
-}
-
-</script>
 <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"></script>
 
 <script>
-// Your Firebase Configuration
+// Firebase Configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDsmKm2nVue_PF5CCStl3nGvkmTIxuEK4g",
-  authDomain: "fragile-beats-e347d.firebaseapp.com",
-  databaseURL: "https://fragile-beats-e347d-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "fragile-beats-e347d",
-  storageBucket: "fragile-beats-e347d.firebasestorage.app",
-  messagingSenderId: "673443920426",
-  appId: "1:673443920426:web:60e668cde2330b19966153"
+    apiKey: "AIzaSyDsmKm2nVue_PF5CCStl3nGvkmTIxuEK4g",
+    authDomain: "fragile-beats-e347d.firebaseapp.com",
+    databaseURL: "https://fragile-beats-e347d-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "fragile-beats-e347d",
+    storageBucket: "fragile-beats-e347d.appspot.com",
+    messagingSenderId: "673443920426",
+    appId: "1:673443920426:web:60e668cde2330b19966153"
 };
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const database = firebase.database(app);
 
-// Function to navigate to the Vitals Page
 function navigateToVitals() {
     document.getElementById('signInPage').classList.add('hidden');
     document.getElementById('vitalsPage').classList.remove('hidden');
-
-    // Update vitals data dynamically
     updateVitals();
 }
 
-// Function to navigate back to the Sign In Page
 function navigateToSignIn() {
     document.getElementById('vitalsPage').classList.add('hidden');
     document.getElementById('signInPage').classList.remove('hidden');
 }
 
-// Function to update vitals from Firebase
 function updateVitals() {
     const systolicElement = document.getElementById("systolic");
     const diastolicElement = document.getElementById("diastolic");
@@ -218,12 +199,10 @@ function updateVitals() {
     const hrvElement = document.getElementById("hrv");
     const temperatureElement = document.getElementById("temperature");
 
-    // Reference to your vitals node in the database
-    const vitalsRef = database.ref("vitals");
+    const vitalsRef = firebase.database().ref("vitals");
 
     vitalsRef.on("value", (snapshot) => {
         const data = snapshot.val();
-
         if (data) {
             systolicElement.textContent = data.systolic || "N/A";
             diastolicElement.textContent = data.diastolic || "N/A";
@@ -234,6 +213,5 @@ function updateVitals() {
     });
 }
 </script>
-
 </body>
 </html>
